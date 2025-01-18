@@ -59,19 +59,19 @@ export const IngredientesSection: FC = () => (
       <div className="grid md:grid-cols-3 gap-4">
         {[
           {
-            size: '10"',
+            size: "10&quot;",
             units: 24,
             unitCost: "$1.52",
             boxCost: "$36.52",
           },
           {
-            size: '12"',
+            size: "12&quot;",
             units: 24,
             unitCost: "$1.77",
             boxCost: "$42.40",
           },
           {
-            size: '16"',
+            size: "16&quot;",
             units: 24,
             unitCost: "$2.51",
             boxCost: "$60.24",

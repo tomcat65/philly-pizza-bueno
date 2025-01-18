@@ -4,7 +4,7 @@ import { MenuItem } from "../components/MenuItem";
 export default function Ingredientes() {
   const ingredients = [
     {
-      name: "Masa Philly 10&quot;",
+      name: 'Masa Philly 10"',
       image: "/frozen-philly-crust-10.jpg.png",
       alt: "Masa 10 pulgadas",
       specs: "24 unidades por caja",
@@ -15,7 +15,7 @@ export default function Ingredientes() {
       bin: "40005",
     },
     {
-      name: "Masa Philly 12&quot;",
+      name: 'Masa Philly 12"',
       image: "/frozen-philly-crust-12.jpg.png",
       alt: "Masa 12 pulgadas",
       specs: "24 unidades por caja",
@@ -26,7 +26,7 @@ export default function Ingredientes() {
       bin: "40005",
     },
     {
-      name: "Masa Philly 16&quot;",
+      name: 'Masa Philly 16"',
       image: "/frozen-philly-crust-16.jpg.png",
       alt: "Masa 16 pulgadas",
       specs: "24 unidades por caja",

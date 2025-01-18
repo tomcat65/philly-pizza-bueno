@@ -59,19 +59,19 @@ export const IngredientesSection: FC = () => (
       <div className="grid md:grid-cols-3 gap-4">
         {[
           {
-            size: "10&quot;",
+            size: '10"',
             units: 24,
             unitCost: "$1.52",
             boxCost: "$36.52",
           },
           {
-            size: "12&quot;",
+            size: '12"',
             units: 24,
             unitCost: "$1.77",
             boxCost: "$42.40",
           },
           {
-            size: "16&quot;",
+            size: '16"',
             units: 24,
             unitCost: "$2.51",
             boxCost: "$60.24",
@@ -108,10 +108,10 @@ export const IngredientesSection: FC = () => (
 export const RecetasSection: FC = () => {
   const pizzas = [
     {
-      name: "Pizza Personal (10&quot;)",
+      name: 'Pizza Personal (10")',
       cost: "$2.50",
       ingredients: [
-        "Masa: 1 unidad de 10&quot;",
+        'Masa: 1 unidad de 10"',
         "Salsa: 3 oz Don Pepino",
         "Queso: 4 oz mezcla tres quesos",
         "Pepperoni (opcional): 1 oz (16-18 rebanadas)",
@@ -120,10 +120,10 @@ export const RecetasSection: FC = () => {
       margin: "69%",
     },
     {
-      name: "Pizza Mediana (12&quot;)",
+      name: 'Pizza Mediana (12")',
       cost: "$3.00",
       ingredients: [
-        "Masa: 1 unidad de 12&quot;",
+        'Masa: 1 unidad de 12"',
         "Salsa: 4 oz Don Pepino",
         "Queso: 6 oz mezcla tres quesos",
         "Pepperoni (opcional): 1.5 oz (24-26 rebanadas)",
@@ -132,10 +132,10 @@ export const RecetasSection: FC = () => {
       margin: "77%",
     },
     {
-      name: "Pizza Familiar (16&quot;)",
+      name: 'Pizza Familiar (16")',
       cost: "$4.50",
       ingredients: [
-        "Masa: 1 unidad de 16&quot;",
+        'Masa: 1 unidad de 16"',
         "Salsa: 6 oz Don Pepino",
         "Queso: 8 oz mezcla tres quesos",
         "Pepperoni (opcional): 2 oz (32-34 rebanadas)",

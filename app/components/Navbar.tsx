@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Home, Book, Pizza } from "lucide-react";
 import { useState, useEffect } from "react";

@@ -1,111 +1,117 @@
 "use client";
 
-import { FC } from "react";
+import { type ReactElement } from "react";
 
-export const IngredientesSection: FC = () => (
-  <div className="space-y-6">
-    <div>
-      <h3 className="text-lg font-semibold text-gray-800 mb-3">Quesos</h3>
-      <div className="space-y-4">
-        <div className="bg-white p-4 rounded-lg shadow-sm">
-          <h4 className="font-medium text-gray-900">
-            Mezcla Tres Quesos Supremo Italiano (5 lbs)
-          </h4>
-          <ul className="mt-2 space-y-1 text-gray-600">
-            <li>Costo por bolsa: $14.27</li>
-            <li>Costo por caja (4 unidades): $57.08</li>
-            <li>Contiene: Provolone, Mozzarella, Cheddar</li>
-          </ul>
-        </div>
-        <div className="bg-white p-4 rounded-lg shadow-sm">
-          <h4 className="font-medium text-gray-900">
-            Mozzarella Entera Supremo Italiano (5 lbs)
-          </h4>
-          <ul className="mt-2 space-y-1 text-gray-600">
-            <li>Costo por bolsa: $11.84</li>
-            <li>Costo por caja (4 unidades): $47.35</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <h3 className="text-lg font-semibold text-gray-800 mb-3">Salsas</h3>
-      <div className="space-y-4">
-        <div className="bg-white p-4 rounded-lg shadow-sm">
-          <h4 className="font-medium text-gray-900">
-            Salsa Bonta con Albahaca (#10)
-          </h4>
-          <ul className="mt-2 space-y-1 text-gray-600">
-            <li>Costo por lata: $7.99</li>
-            <li>Costo por caja (6 unidades): $47.92</li>
-          </ul>
-        </div>
-        <div className="bg-white p-4 rounded-lg shadow-sm">
-          <h4 className="font-medium text-gray-900">Salsa Don Pepino (#10)</h4>
-          <ul className="mt-2 space-y-1 text-gray-600">
-            <li>Costo por lata: $5.60</li>
-            <li>Costo por caja (6 unidades): $33.61</li>
-            <li className="text-green-600 font-medium">
-              * Recomendada por mejor margen
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <h3 className="text-lg font-semibold text-gray-800 mb-3">Masas Philly</h3>
-      <div className="grid md:grid-cols-3 gap-4">
-        {[
-          {
-            size: '10"',
-            units: 24,
-            unitCost: "$1.52",
-            boxCost: "$36.52",
-          },
-          {
-            size: '12"',
-            units: 24,
-            unitCost: "$1.77",
-            boxCost: "$42.40",
-          },
-          {
-            size: '16"',
-            units: 24,
-            unitCost: "$2.51",
-            boxCost: "$60.24",
-          },
-        ].map((masa) => (
-          <div key={masa.size} className="bg-white p-4 rounded-lg shadow-sm">
+export function IngredientesSection(): ReactElement {
+  return (
+    <div className="space-y-6">
+      <div>
+        <h3 className="text-lg font-semibold text-gray-800 mb-3">Quesos</h3>
+        <div className="space-y-4">
+          <div className="bg-white p-4 rounded-lg shadow-sm">
             <h4 className="font-medium text-gray-900">
-              {masa.size} ({masa.units} unidades)
+              Mezcla Tres Quesos Supremo Italiano (5 lbs)
             </h4>
             <ul className="mt-2 space-y-1 text-gray-600">
-              <li>Costo por unidad: {masa.unitCost}</li>
-              <li>Costo por caja: {masa.boxCost}</li>
+              <li>Costo por bolsa: $14.27</li>
+              <li>Costo por caja (4 unidades): $57.08</li>
+              <li>Contiene: Provolone, Mozzarella, Cheddar</li>
             </ul>
           </div>
-        ))}
+          <div className="bg-white p-4 rounded-lg shadow-sm">
+            <h4 className="font-medium text-gray-900">
+              Mozzarella Entera Supremo Italiano (5 lbs)
+            </h4>
+            <ul className="mt-2 space-y-1 text-gray-600">
+              <li>Costo por bolsa: $11.84</li>
+              <li>Costo por caja (4 unidades): $47.35</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-lg font-semibold text-gray-800 mb-3">Salsas</h3>
+        <div className="space-y-4">
+          <div className="bg-white p-4 rounded-lg shadow-sm">
+            <h4 className="font-medium text-gray-900">
+              Salsa Bonta con Albahaca (#10)
+            </h4>
+            <ul className="mt-2 space-y-1 text-gray-600">
+              <li>Costo por lata: $7.99</li>
+              <li>Costo por caja (6 unidades): $47.92</li>
+            </ul>
+          </div>
+          <div className="bg-white p-4 rounded-lg shadow-sm">
+            <h4 className="font-medium text-gray-900">
+              Salsa Don Pepino (#10)
+            </h4>
+            <ul className="mt-2 space-y-1 text-gray-600">
+              <li>Costo por lata: $5.60</li>
+              <li>Costo por caja (6 unidades): $33.61</li>
+              <li className="text-green-600 font-medium">
+                * Recomendada por mejor margen
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-lg font-semibold text-gray-800 mb-3">
+          Masas Philly
+        </h3>
+        <div className="grid md:grid-cols-3 gap-4">
+          {[
+            {
+              size: '10"',
+              units: 24,
+              unitCost: "$1.52",
+              boxCost: "$36.52",
+            },
+            {
+              size: '12"',
+              units: 24,
+              unitCost: "$1.77",
+              boxCost: "$42.40",
+            },
+            {
+              size: '16"',
+              units: 24,
+              unitCost: "$2.51",
+              boxCost: "$60.24",
+            },
+          ].map((masa) => (
+            <div key={masa.size} className="bg-white p-4 rounded-lg shadow-sm">
+              <h4 className="font-medium text-gray-900">
+                {masa.size} ({masa.units} unidades)
+              </h4>
+              <ul className="mt-2 space-y-1 text-gray-600">
+                <li>Costo por unidad: {masa.unitCost}</li>
+                <li>Costo por caja: {masa.boxCost}</li>
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-lg font-semibold text-gray-800 mb-3">Pepperoni</h3>
+        <div className="bg-white p-4 rounded-lg shadow-sm">
+          <h4 className="font-medium text-gray-900">
+            Hormel en rebanadas (12.5 lb)
+          </h4>
+          <ul className="mt-2 space-y-1 text-gray-600">
+            <li>Costo por libra: $5.87</li>
+            <li>Costo por caja: $146.76</li>
+          </ul>
+        </div>
       </div>
     </div>
+  );
+}
 
-    <div>
-      <h3 className="text-lg font-semibold text-gray-800 mb-3">Pepperoni</h3>
-      <div className="bg-white p-4 rounded-lg shadow-sm">
-        <h4 className="font-medium text-gray-900">
-          Hormel en rebanadas (12.5 lb)
-        </h4>
-        <ul className="mt-2 space-y-1 text-gray-600">
-          <li>Costo por libra: $5.87</li>
-          <li>Costo por caja: $146.76</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-);
-
-export const RecetasSection: FC = () => {
+export function RecetasSection(): ReactElement {
   const pizzas = [
     {
       name: 'Pizza Personal (10")',
@@ -170,9 +176,9 @@ export const RecetasSection: FC = () => {
       ))}
     </div>
   );
-};
+}
 
-export const PaquetesSection: FC = () => {
+export function PaquetesSection(): ReactElement {
   const packages = [
     {
       name: "BÁSICO - BIRTHDAY BASICS",
@@ -237,9 +243,9 @@ export const PaquetesSection: FC = () => {
       ))}
     </div>
   );
-};
+}
 
-export const PromocionesSection: FC = () => {
+export function PromocionesSection(): ReactElement {
   const extras = [
     {
       name: "Queso Extra",
@@ -298,9 +304,9 @@ export const PromocionesSection: FC = () => {
       </div>
     </div>
   );
-};
+}
 
-export const ProcedimientosSection: FC = () => {
+export function ProcedimientosSection(): ReactElement {
   const stations = [
     {
       name: "Estación de Salsa",
@@ -369,9 +375,9 @@ export const ProcedimientosSection: FC = () => {
       </div>
     </div>
   );
-};
+}
 
-export const CalidadSection: FC = () => {
+export function CalidadSection(): ReactElement {
   const sections = [
     {
       name: "Temperaturas",
@@ -429,4 +435,4 @@ export const CalidadSection: FC = () => {
       ))}
     </div>
   );
-};
+}

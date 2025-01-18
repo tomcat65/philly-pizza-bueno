@@ -1,5 +1,6 @@
 "use client";
 
+import { type ReactElement } from "react";
 import {
   IngredientesSection,
   RecetasSection,
@@ -12,7 +13,7 @@ import {
 interface Section {
   id: string;
   title: string;
-  Component: () => JSX.Element;
+  Component: () => ReactElement;
 }
 
 export default function Manual() {

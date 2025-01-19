@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Pizza Slice -->
-  <path d="M16 2L30 28H2L16 2Z" fill="#DC2626" stroke="#991B1B" stroke-width="2"/>
-  <!-- Pepperoni spots -->
-  <circle cx="16" cy="15" r="2" fill="#991B1B"/>
-  <circle cx="12" cy="20" r="2" fill="#991B1B"/>
-  <circle cx="20" cy="20" r="2" fill="#991B1B"/>
-  <!-- PPB Text -->
-  <text x="8" y="26" font-family="Arial" font-size="8" font-weight="bold" fill="#FFFFFF">PPB</text>
+  <!-- Pizza Slice Outline -->
+  <path d="M4 28L16 4L28 28H4Z" stroke="#E11D48" stroke-width="3" stroke-linejoin="round"/>
+  
+  <!-- Three Pepperoni Shapes -->
+  <circle cx="12" cy="23" r="2" stroke="#E11D48" stroke-width="1"/>
+  <circle cx="16" cy="21" r="2" stroke="#E11D48" stroke-width="1"/>
+  <circle cx="20" cy="23" r="2" stroke="#E11D48" stroke-width="1"/>
+  
+  <!-- PPB Text - Handwritten Style -->
+  <path d="M10 18C10 18 11 16 11 15C11 14 10 14 10 15C10 16 10 20 10 20C10 20 11 18 12 18C13 18 13 19 12 20C11 21 10 20 10 20" stroke="#E11D48" stroke-width="1.5"/>
+  <path d="M14 18C14 18 15 16 15 15C15 14 14 14 14 15C14 16 14 20 14 20C14 20 15 18 16 18C17 18 17 19 16 20C15 21 14 20 14 20" stroke="#E11D48" stroke-width="1.5"/>
+  <path d="M18 15C18 15 20 15 21 16C22 17 21 20 18 20C17 20 17 20 17 20" stroke="#E11D48" stroke-width="1.5"/>
 </svg> 

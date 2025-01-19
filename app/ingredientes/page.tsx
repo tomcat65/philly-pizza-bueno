@@ -351,175 +351,161 @@ const ingredients = {
   ],
 };
 
-export default function IngredientesPage(): ReactElement {
+export default function IngredientsPage(): ReactElement {
   const { language } = useLanguage();
-  const t = translations[language];
-
-  const menuItems = [
-    {
-      name: "Pizza de Queso",
-      image: "/pizza-queso.jpg",
-      alt: "Pizza Personal",
-      description: "Base de salsa Don Pepino, mezcla tres quesos",
-      price: "$7.99",
-      specs: ['Masa 10" Philly', "3 oz salsa", "4 oz queso"],
-    },
-    {
-      name: "Pizza de Pepperoni",
-      image: "/pizza-pepperoni.jpg",
-      alt: "Pizza Personal Pepperoni",
-      description: "Base de salsa, queso y pepperoni",
-      price: "$9.99",
-      specs: ["16-18 rebanadas de pepperoni", "Distribución en círculo"],
-    },
-  ];
-
-  const partyPackages = [
-    {
-      title: "Birthday Basics",
-      image: "/package-basic.jpg",
-      description: "Ideal para 10-12 niños",
-      price: "$39.99",
-      specs: [
-        '2 pizzas de 16" de queso',
-        "Corte especial para fiesta",
-        "16 porciones totales",
-      ],
-    },
-    {
-      title: "Pizza Party Plus",
-      image: "/package-plus.jpg",
-      description: "Ideal para 15-18 niños",
-      price: "$64.99",
-      specs: [
-        '3 pizzas de 16"',
-        "2 de queso, 1 de pepperoni",
-        "1 caja de Combos Snacks",
-      ],
-    },
-    {
-      title: "Supreme Celebration",
-      image: "/package-supreme.jpg",
-      description: "Ideal para 20-25 niños",
-      price: "$89.99",
-      specs: [
-        '4 pizzas de 16"',
-        "2 de queso, 2 de pepperoni",
-        "2 cajas de Combos Snacks",
-      ],
-    },
-  ];
-
-  const preparationGuides = [
-    {
-      size: '10" Personal',
-      specs: [
-        "Tiempo: 8-10 minutos",
-        "Temperatura: 450°F",
-        "Salsa: 3 oz",
-        "Queso: 4 oz",
-        "Pepperoni: 16-18 piezas",
-      ],
-    },
-    {
-      size: '12" Mediana',
-      specs: [
-        "Tiempo: 10-12 minutos",
-        "Temperatura: 450°F",
-        "Salsa: 4 oz",
-        "Queso: 6 oz",
-        "Pepperoni: 24-26 piezas",
-      ],
-    },
-    {
-      size: '16" Familiar',
-      specs: [
-        "Tiempo: 12-15 minutos",
-        "Temperatura: 450°F",
-        "Salsa: 6 oz",
-        "Queso: 8 oz",
-        "Pepperoni: 32-34 piezas",
-      ],
-    },
-  ];
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
-      <div className="bg-gray-50 p-6 mb-8 rounded-lg text-center">
-        <h1 className="text-3xl font-bold mb-2">
-          Menú Visual y Catálogo de Suministros
-        </h1>
-        <p className="text-gray-600">Guía de referencia para personal</p>
-      </div>
+    <main className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-8">
+        {translations[language].title}
+      </h1>
 
-      <section className="mb-10">
-        <h2 className="text-2xl font-bold mb-6">Ingredientes Base</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {ingredients[language].map((item, index) => (
-            <ProductCard
-              key={index}
-              name={item.name}
-              image={item.image}
-              alt={item.alt}
-              specs={item.specs}
-              unitPrice={item.unitPrice}
-              casePrice={item.casePrice}
-              extraInfo={item.extraInfo}
-              itemNumber={item.itemNumber}
-              upc={item.upc}
-              bin={item.bin}
-            />
-          ))}
+      {/* Crusts Section */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold mb-6">
+          {translations[language].crusts.title}
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <ProductCard
+            image="/frozen-philly-crust-10.jpg.png"
+            alt={translations[language].crusts.masa10.name}
+            title={translations[language].crusts.masa10.name}
+            details={[
+              translations[language].crusts.masa10.unitCost,
+              translations[language].crusts.masa10.boxCost,
+              translations[language].crusts.masa10.units,
+            ]}
+            itemNumber="671177"
+            upc="4460502004"
+            bin="40005"
+          />
+          <ProductCard
+            image="/frozen-philly-crust-12.jpg.png"
+            alt={translations[language].crusts.masa12.name}
+            title={translations[language].crusts.masa12.name}
+            details={[
+              translations[language].crusts.masa12.unitCost,
+              translations[language].crusts.masa12.boxCost,
+              translations[language].crusts.masa12.units,
+            ]}
+            itemNumber="44611"
+            upc="4460502001"
+            bin="40005"
+          />
+          <ProductCard
+            image="/frozen-philly-crust-16.jpg.png"
+            alt={translations[language].crusts.masa16.name}
+            title={translations[language].crusts.masa16.name}
+            details={[
+              translations[language].crusts.masa16.unitCost,
+              translations[language].crusts.masa16.boxCost,
+              translations[language].crusts.masa16.units,
+            ]}
+            itemNumber="44612"
+            upc="4460502002"
+            bin="40005"
+          />
         </div>
       </section>
 
-      <section className="mb-10">
-        <h2 className="text-2xl font-bold mb-6">Menú de Pizzas</h2>
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
-          <h3 className="text-xl font-semibold mb-4">Pizza Personal (10")</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {menuItems.map((item, index) => (
-              <MenuItem key={index} {...item} />
-            ))}
-          </div>
+      {/* Cheese Section */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold mb-6">
+          {translations[language].cheese.title}
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <ProductCard
+            image="/supremo-italiano-3cheese.jpg.png"
+            alt={translations[language].cheese.threeCheeseBlend.name}
+            title={translations[language].cheese.threeCheeseBlend.name}
+            details={[
+              translations[language].cheese.threeCheeseBlend.cost,
+              translations[language].cheese.threeCheeseBlend.units,
+            ]}
+            itemNumber="1440401"
+            upc="76069501639"
+            bin="70021"
+          />
+          <ProductCard
+            image="/supremo-italiano-mozzarella.jpg.png"
+            alt={translations[language].cheese.mozzarella.name}
+            title={translations[language].cheese.mozzarella.name}
+            details={[
+              translations[language].cheese.mozzarella.cost,
+              translations[language].cheese.mozzarella.units,
+            ]}
+            itemNumber="93003"
+            upc="7606950450"
+            bin="70020"
+          />
         </div>
+      </section>
 
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <h3 className="text-xl font-semibold mb-4">Paquetes para Fiestas</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {partyPackages.map((package_, index) => (
-              <MenuItem
-                key={index}
-                name={package_.title}
-                image={package_.image}
-                alt={package_.title}
-                description={package_.description}
-                price={package_.price}
-                specs={package_.specs}
-              />
-            ))}
-          </div>
+      {/* Sauces Section */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold mb-6">
+          {translations[language].sauces.title}
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <ProductCard
+            image="/bonta-pizza-sauce.jpg.png"
+            alt={translations[language].sauces.bonta.name}
+            title={translations[language].sauces.bonta.name}
+            details={[
+              translations[language].sauces.bonta.cost,
+              translations[language].sauces.bonta.units,
+            ]}
+            itemNumber="29874"
+            upc="7848530110"
+            bin="7010"
+          />
+          <ProductCard
+            image="/don-pepino-sauce.jpg.png"
+            alt={translations[language].sauces.donPepino.name}
+            title={translations[language].sauces.donPepino.name}
+            details={[
+              translations[language].sauces.donPepino.cost,
+              translations[language].sauces.donPepino.units,
+            ]}
+            itemNumber="29875"
+            upc="7848530111"
+            bin="7011"
+          />
         </div>
       </section>
 
-      <section className="mb-10">
-        <h2 className="text-2xl font-bold mb-6">Guía de Preparación</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {preparationGuides.map((size, index) => (
-            <div
-              key={index}
-              className="border border-gray-200 rounded-lg p-4 bg-white"
-            >
-              <h3 className="text-lg font-semibold mb-2">{size.size}</h3>
-              <div className="text-sm text-gray-600">
-                {size.specs.map((spec, i) => (
-                  <div key={i}>{spec}</div>
-                ))}
-              </div>
-            </div>
-          ))}
+      {/* Toppings Section */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold mb-6">
+          {translations[language].toppings.title}
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <ProductCard
+            image="/hormel-pepperoni.jpg.png"
+            alt={translations[language].toppings.pepperoni.name}
+            title={translations[language].toppings.pepperoni.name}
+            details={[
+              translations[language].toppings.pepperoni.cost,
+              translations[language].toppings.pepperoni.units,
+            ]}
+            itemNumber="80354"
+            upc="3760048571"
+            bin="60029"
+          />
+          <ProductCard
+            image="/combos-pizza-pretzel.jpg.png"
+            alt={translations[language].toppings.combos.name}
+            title={translations[language].toppings.combos.name}
+            details={[
+              translations[language].toppings.combos.cost,
+              translations[language].toppings.combos.units,
+            ]}
+            itemNumber="12011"
+            upc="4141971575"
+            bin="20015"
+          />
         </div>
       </section>
-    </div>
+    </main>
   );
 }

@@ -4,6 +4,15 @@ import { type ReactElement } from "react";
 import { useLanguage } from "../../context/LanguageContext";
 import { translations } from "../../translations/manual";
 
+interface Package {
+  name: string;
+  capacity: string;
+  items: string[];
+  cost: string;
+  price: string;
+  margin: string;
+}
+
 export function IngredientesSection(): ReactElement {
   const { language } = useLanguage();
   const t = translations[language].ingredients;

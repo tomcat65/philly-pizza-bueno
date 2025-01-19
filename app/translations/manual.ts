@@ -64,6 +64,9 @@ export const translations = {
         name: "BASIC - BIRTHDAY BASICS",
         capacity: "10-12 kids",
         items: ['2 16" cheese pizzas', "Special party cut (8 slices each)"],
+        cost: "$13.50",
+        price: "$39.99",
+        margin: "66%",
       },
       plus: {
         name: "PLUS - PIZZA PARTY PLUS",
@@ -73,6 +76,9 @@ export const translations = {
           "Special party cut",
           "1 box of Combos Snacks",
         ],
+        cost: "$22.50",
+        price: "$64.99",
+        margin: "65%",
       },
       supreme: {
         name: "SUPREME - SUPREME CELEBRATION",
@@ -82,6 +88,9 @@ export const translations = {
           "2 boxes of Combos Snacks",
           "Custom cut available",
         ],
+        cost: "$31.50",
+        price: "$89.99",
+        margin: "65%",
       },
     },
     promotions: {
@@ -260,6 +269,9 @@ export const translations = {
           '2 pizzas de 16" de queso',
           "Corte especial para fiesta (8 rebanadas c/u)",
         ],
+        cost: "$13.50",
+        price: "$39.99",
+        margin: "66%",
       },
       plus: {
         name: "PLUS - PIZZA PARTY PLUS",
@@ -269,6 +281,9 @@ export const translations = {
           "Corte especial para fiesta",
           "1 caja de Combos Snacks",
         ],
+        cost: "$22.50",
+        price: "$64.99",
+        margin: "65%",
       },
       supreme: {
         name: "SUPREME - SUPREME CELEBRATION",
@@ -278,6 +293,9 @@ export const translations = {
           "2 cajas de Combos Snacks",
           "Corte personalizado disponible",
         ],
+        cost: "$31.50",
+        price: "$89.99",
+        margin: "65%",
       },
     },
     promotions: {

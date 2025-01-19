@@ -121,7 +121,7 @@ export default function Home() {
       </div>
 
       {/* Footer */}
-      <footer className="bg-red-600 text-white py-6 mt-12">
+      <footer className="bg-red-600 py-6 mt-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-white/90 text-sm">{t.footer.copyright}</p>
         </div>

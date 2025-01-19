@@ -1,9 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLanguage } from "../context/LanguageContext";
-import { Home, Pizza } from "lucide-react";
+import { Home, Pizza, Menu, X } from "lucide-react";
 
 const translations = {
   en: {
@@ -21,6 +22,7 @@ const translations = {
 export function Navbar() {
   const pathname = usePathname();
   const { language, toggleLanguage } = useLanguage();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const t = translations[language];
 
   const isActive = (path: string) => {
@@ -38,11 +40,13 @@ export function Navbar() {
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-2">
               <Pizza className="h-8 w-8 text-red-600" />
-              <span className="text-lg font-semibold text-red-600">PhillyPizzaBueno</span>
+              <span className="text-lg font-semibold text-red-600">
+                PhillyPizzaBueno
+              </span>
             </Link>
           </div>
 
-          {/* Navigation Links */}
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-4">
             <Link
               href="/"
@@ -83,7 +87,7 @@ export function Navbar() {
             </button>
           </div>
 
-          {/* Mobile Menu */}
+          {/* Mobile Navigation */}
           <div className="md:hidden flex items-center space-x-2">
             <button
               onClick={toggleLanguage}
@@ -91,38 +95,60 @@ export function Navbar() {
             >
               {language === "en" ? "ES" : "EN"}
             </button>
-            <Link
-              href="/"
-              className={`p-2 rounded-md ${
-                isActive("/")
-                  ? "text-red-600 bg-red-50"
-                  : "text-gray-600 hover:text-red-600 hover:bg-red-50"
-              }`}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="p-2 rounded-md text-gray-600 hover:text-red-600 hover:bg-red-50"
             >
-              <Home className="h-5 w-5" />
-            </Link>
-            <Link
-              href="/manual"
-              className={`p-2 rounded-md text-sm font-medium ${
-                isActive("/manual")
-                  ? "text-red-600 bg-red-50"
-                  : "text-gray-600 hover:text-red-600 hover:bg-red-50"
-              }`}
-            >
-              {t.manual}
-            </Link>
-            <Link
-              href="/ingredientes"
-              className={`p-2 rounded-md text-sm font-medium ${
-                isActive("/ingredientes")
-                  ? "text-red-600 bg-red-50"
-                  : "text-gray-600 hover:text-red-600 hover:bg-red-50"
-              }`}
-            >
-              {t.ingredients}
-            </Link>
+              {isMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
+            </button>
           </div>
         </nav>
+
+        {/* Mobile Menu Dropdown */}
+        {isMenuOpen && (
+          <div className="md:hidden border-t border-gray-200">
+            <div className="py-2 space-y-1">
+              <Link
+                href="/"
+                className={`flex items-center px-4 py-3 text-base font-medium ${
+                  isActive("/")
+                    ? "text-red-600 bg-red-50"
+                    : "text-gray-600 hover:text-red-600 hover:bg-red-50"
+                }`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <Home className="h-5 w-5 mr-2" />
+                {t.home}
+              </Link>
+              <Link
+                href="/manual"
+                className={`block px-4 py-3 text-base font-medium ${
+                  isActive("/manual")
+                    ? "text-red-600 bg-red-50"
+                    : "text-gray-600 hover:text-red-600 hover:bg-red-50"
+                }`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {t.manual}
+              </Link>
+              <Link
+                href="/ingredientes"
+                className={`block px-4 py-3 text-base font-medium ${
+                  isActive("/ingredientes")
+                    ? "text-red-600 bg-red-50"
+                    : "text-gray-600 hover:text-red-600 hover:bg-red-50"
+                }`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {t.ingredients}
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
     </header>
   );

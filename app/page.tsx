@@ -17,12 +17,17 @@ const translations = {
         title: "Procedures Manual",
         description:
           "Step-by-step guides for preparation, cooking, and quality control.",
+        action: "View Manual",
       },
       ingredients: {
         title: "Ingredients & Products",
         description:
           "Complete catalog of ingredients with costs and specifications.",
+        action: "View Ingredients",
       },
+    },
+    footer: {
+      copyright: "© 2024 PhillyPizzaBueno. All rights reserved.",
     },
   },
   es: {
@@ -37,12 +42,17 @@ const translations = {
         title: "Manual de Procedimientos",
         description:
           "Guías paso a paso para preparación, cocción y control de calidad.",
+        action: "Ver Manual",
       },
       ingredients: {
         title: "Ingredientes y Productos",
         description:
           "Catálogo completo de ingredientes con costos y especificaciones.",
+        action: "Ver Ingredientes",
       },
+    },
+    footer: {
+      copyright: "© 2024 PhillyPizzaBueno. Todos los derechos reservados.",
     },
   },
 };
@@ -91,7 +101,7 @@ export default function Home() {
             </h2>
             <p className="text-gray-600 mb-6">{t.cards.manual.description}</p>
             <div className="flex items-center text-red-600 font-semibold">
-              Ver Manual
+              {t.cards.manual.action}
               <ArrowRight className="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
             </div>
           </Link>
@@ -111,7 +121,7 @@ export default function Home() {
               {t.cards.ingredients.description}
             </p>
             <div className="flex items-center text-red-600 font-semibold">
-              Ver Ingredientes
+              {t.cards.ingredients.action}
               <ArrowRight className="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
             </div>
           </Link>
@@ -121,9 +131,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-red-600 text-white py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-red-100">
-            © 2024 PhillyPizzaBueno. Todos los derechos reservados.
-          </p>
+          <p className="text-red-100">{t.footer.copyright}</p>
         </div>
       </footer>
     </main>

@@ -11,6 +11,15 @@ import {
   CalidadSection,
 } from "./components/Sections";
 
+interface SectionData {
+  id: string;
+  title: string;
+}
+
+interface Section extends SectionData {
+  Component: () => ReactElement;
+}
+
 const translations = {
   en: {
     title: "Pizza Operations Manual - Food Court",
@@ -42,7 +51,7 @@ const translations = {
         id: "calidad",
         title: "6. Quality Control",
       },
-    ],
+    ] as SectionData[],
   },
   es: {
     title: "Manual de Operaciones de Pizza - Food Court",
@@ -74,31 +83,31 @@ const translations = {
         id: "calidad",
         title: "6. Control de Calidad",
       },
-    ],
+    ] as SectionData[],
   },
 };
 
-interface Section {
-  id: string;
-  title: string;
-  Component: () => ReactElement;
-}
+const componentMap: Record<string, () => ReactElement> = {
+  ingredientes: IngredientesSection,
+  recetas: RecetasSection,
+  paquetes: PaquetesSection,
+  promociones: PromocionesSection,
+  procedimientos: ProcedimientosSection,
+  calidad: CalidadSection,
+};
 
-export default function Manual() {
+export default function Manual(): ReactElement {
   const { language } = useLanguage();
   const t = translations[language];
 
   const sections: Section[] = t.sections.map((section) => ({
     ...section,
-    Component: {
-      ingredientes: IngredientesSection,
-      recetas: RecetasSection,
-      paquetes: PaquetesSection,
-      promociones: PromocionesSection,
-      procedimientos: ProcedimientosSection,
-      calidad: CalidadSection,
-    }[section.id],
+    Component: componentMap[section.id],
   }));
+
+  const renderComponent = (Component: () => ReactElement) => {
+    return <Component />;
+  };
 
   return (
     <div className="max-w-7xl mx-auto p-6" suppressHydrationWarning>
@@ -131,7 +140,7 @@ export default function Manual() {
             <h2 className="text-2xl font-bold mb-6 text-gray-900">
               {section.title}
             </h2>
-            <section.Component />
+            {renderComponent(section.Component)}
           </section>
         ))}
       </div>

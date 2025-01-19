@@ -1,73 +1,58 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
-import { Home, Book, Pizza } from "lucide-react";
-import { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useLanguage } from "../context/LanguageContext";
+
+const navItems = {
+  en: [
+    { name: "Home", path: "/" },
+    { name: "Manual", path: "/manual" },
+    { name: "Ingredients", path: "/ingredientes" },
+  ],
+  es: [
+    { name: "Inicio", path: "/" },
+    { name: "Manual", path: "/manual" },
+    { name: "Ingredientes", path: "/ingredientes" },
+  ],
+};
 
 export function Navbar() {
   const pathname = usePathname();
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState<string | null>(null);
+  const { language } = useLanguage();
 
   const isActive = (path: string) => {
-    if (path === "/" && pathname === "/") return true;
-    if (path !== "/" && pathname.startsWith(path)) return true;
-    return false;
-  };
-
-  // Reset loading state when pathname changes
-  useEffect(() => {
-    setIsLoading(null);
-  }, [pathname]);
-
-  const handleNavigation = async (href: string) => {
-    if (href === pathname) return; // Don't navigate if already on the page
-    setIsLoading(href);
-    try {
-      await router.push(href);
-    } catch (error) {
-      console.error("Navigation failed:", error);
+    if (path === "/") {
+      return pathname === path;
     }
+    return pathname.startsWith(path);
   };
-
-  const links = [
-    { href: "/", label: "Inicio", icon: Home },
-    { href: "/manual", label: "Manual", icon: Book },
-    { href: "/ingredientes", label: "Ingredientes", icon: Pizza },
-  ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md z-50 border-b border-gray-200">
+    <header className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md border-b border-gray-200 z-50">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <button
-            onClick={() => handleNavigation("/")}
-            className="flex items-center space-x-2 text-xl font-bold text-red-600 hover:text-red-700 transition-colors"
-            disabled={isLoading !== null}
-          >
-            <Pizza className="w-6 h-6" />
-            <span>PhillyPizzaBueno</span>
-          </button>
-
-          <div className="flex items-center space-x-1 sm:space-x-4">
-            {links.map(({ href, label, icon: Icon }) => (
-              <button
-                key={href}
-                onClick={() => handleNavigation(href)}
-                className={`flex items-center px-2 sm:px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  isActive(href)
-                    ? "bg-red-600 text-white"
-                    : "text-gray-600 hover:bg-red-50 hover:text-red-600"
-                } ${isLoading === href ? "opacity-70 cursor-wait" : ""}`}
-                disabled={isLoading !== null}
+        <div className="flex justify-between h-16">
+          <div className="flex">
+            <Link
+              href="/"
+              className="flex items-center text-red-600 font-bold text-xl"
+            >
+              PhillyPizzaBueno
+            </Link>
+          </div>
+          <div className="flex space-x-8">
+            {navItems[language].map((item) => (
+              <Link
+                key={item.path}
+                href={item.path}
+                className={`inline-flex items-center px-1 pt-1 text-sm font-medium ${
+                  isActive(item.path)
+                    ? "text-red-600 border-b-2 border-red-600"
+                    : "text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                }`}
               >
-                <Icon
-                  className={`w-4 h-4 sm:mr-2 ${
-                    isLoading === href ? "animate-spin" : ""
-                  }`}
-                />
-                <span className="hidden sm:inline">{label}</span>
-              </button>
+                {item.name}
+              </Link>
             ))}
           </div>
         </div>

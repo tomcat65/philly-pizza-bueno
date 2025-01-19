@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "./components/Navbar";
+import { LanguageProvider } from "./context/LanguageContext";
+import { LanguageToggle } from "./components/LanguageToggle";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "PhillyPizzaBueno",
-  description:
-    "Sistema de gestión y control de operaciones para tu negocio de pizzas",
+  description: "Pizza Manual and Ingredients Guide",
 };
 
 export default function RootLayout({
@@ -18,11 +18,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body suppressHydrationWarning className={inter.className}>
-        <Navbar />
-        <div className="pt-16">
+      <body className={inter.className} suppressHydrationWarning>
+        <LanguageProvider>
           {children}
-        </div>
+          <LanguageToggle />
+        </LanguageProvider>
       </body>
     </html>
   );

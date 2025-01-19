@@ -1,6 +1,18 @@
 "use client";
 
 import { ProductImage } from "./ProductImage";
+import { useLanguage } from "../context/LanguageContext";
+
+const translations = {
+  en: {
+    unitCost: "Cost per unit:",
+    caseCost: "Cost per case:",
+  },
+  es: {
+    unitCost: "Costo por unidad:",
+    caseCost: "Costo por case:",
+  },
+};
 
 interface ProductCardProps {
   name: string;
@@ -27,6 +39,9 @@ export function ProductCard({
   upc,
   bin,
 }: ProductCardProps) {
+  const { language } = useLanguage();
+  const t = translations[language];
+
   return (
     <div className="border border-gray-200 rounded-lg p-4 bg-white">
       <ProductImage
@@ -40,7 +55,7 @@ export function ProductCard({
       <p className="text-sm text-gray-600">{specs}</p>
       {unitPrice && (
         <p className="text-lg font-bold text-green-700">
-          Costo por unidad: {unitPrice}
+          {t.unitCost} {unitPrice}
         </p>
       )}
       <p
@@ -48,7 +63,7 @@ export function ProductCard({
           unitPrice ? "text-gray-600" : "text-lg font-bold text-green-700"
         }`}
       >
-        Costo por {unitPrice ? "caja" : "case"}: {casePrice}
+        {t.caseCost} {casePrice}
       </p>
       {extraInfo && <p className="text-gray-600">{extraInfo}</p>}
     </div>

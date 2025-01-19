@@ -3,23 +3,25 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLanguage } from "../context/LanguageContext";
+import { Home, Pizza } from "lucide-react";
 
-const navItems = {
-  en: [
-    { name: "Home", path: "/" },
-    { name: "Manual", path: "/manual" },
-    { name: "Ingredients", path: "/ingredientes" },
-  ],
-  es: [
-    { name: "Inicio", path: "/" },
-    { name: "Manual", path: "/manual" },
-    { name: "Ingredientes", path: "/ingredientes" },
-  ],
+const translations = {
+  en: {
+    home: "Home",
+    manual: "Manual",
+    ingredients: "Ingredients",
+  },
+  es: {
+    home: "Inicio",
+    manual: "Manual",
+    ingredients: "Ingredientes",
+  },
 };
 
 export function Navbar() {
   const pathname = usePathname();
-  const { language } = useLanguage();
+  const { language, toggleLanguage } = useLanguage();
+  const t = translations[language];
 
   const isActive = (path: string) => {
     if (path === "/") {
@@ -29,34 +31,99 @@ export function Navbar() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md border-b border-gray-200 z-50">
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex">
-            <Link
-              href="/"
-              className="flex items-center text-red-600 font-bold text-xl"
-            >
-              PhillyPizzaBueno
+    <header className="fixed top-0 left-0 right-0 bg-white bg-opacity-90 backdrop-blur-sm z-50 border-b border-gray-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <nav className="flex items-center justify-between h-16">
+          {/* Logo and Brand */}
+          <div className="flex items-center">
+            <Link href="/" className="flex items-center space-x-2">
+              <Pizza className="h-8 w-8 text-red-600" />
+              <span className="text-lg font-semibold text-red-600">PhillyPizzaBueno</span>
             </Link>
           </div>
-          <div className="flex space-x-8">
-            {navItems[language].map((item) => (
-              <Link
-                key={item.path}
-                href={item.path}
-                className={`inline-flex items-center px-1 pt-1 text-sm font-medium ${
-                  isActive(item.path)
-                    ? "text-red-600 border-b-2 border-red-600"
-                    : "text-gray-500 hover:text-gray-700 hover:border-gray-300"
-                }`}
-              >
-                {item.name}
-              </Link>
-            ))}
+
+          {/* Navigation Links */}
+          <div className="hidden md:flex items-center space-x-4">
+            <Link
+              href="/"
+              className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                isActive("/")
+                  ? "text-red-600 bg-red-50"
+                  : "text-gray-600 hover:text-red-600 hover:bg-red-50"
+              }`}
+            >
+              <Home className="h-4 w-4 mr-1" />
+              {t.home}
+            </Link>
+            <Link
+              href="/manual"
+              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                isActive("/manual")
+                  ? "text-red-600 bg-red-50"
+                  : "text-gray-600 hover:text-red-600 hover:bg-red-50"
+              }`}
+            >
+              {t.manual}
+            </Link>
+            <Link
+              href="/ingredientes"
+              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                isActive("/ingredientes")
+                  ? "text-red-600 bg-red-50"
+                  : "text-gray-600 hover:text-red-600 hover:bg-red-50"
+              }`}
+            >
+              {t.ingredients}
+            </Link>
+            <button
+              onClick={toggleLanguage}
+              className="ml-4 px-3 py-2 rounded-md text-sm font-medium bg-red-600 text-white hover:bg-red-700 transition-colors"
+            >
+              {language === "en" ? "ES" : "EN"}
+            </button>
           </div>
-        </div>
-      </nav>
+
+          {/* Mobile Menu */}
+          <div className="md:hidden flex items-center space-x-2">
+            <button
+              onClick={toggleLanguage}
+              className="px-3 py-2 rounded-md text-sm font-medium bg-red-600 text-white hover:bg-red-700 transition-colors"
+            >
+              {language === "en" ? "ES" : "EN"}
+            </button>
+            <Link
+              href="/"
+              className={`p-2 rounded-md ${
+                isActive("/")
+                  ? "text-red-600 bg-red-50"
+                  : "text-gray-600 hover:text-red-600 hover:bg-red-50"
+              }`}
+            >
+              <Home className="h-5 w-5" />
+            </Link>
+            <Link
+              href="/manual"
+              className={`p-2 rounded-md text-sm font-medium ${
+                isActive("/manual")
+                  ? "text-red-600 bg-red-50"
+                  : "text-gray-600 hover:text-red-600 hover:bg-red-50"
+              }`}
+            >
+              {t.manual}
+            </Link>
+            <Link
+              href="/ingredientes"
+              className={`p-2 rounded-md text-sm font-medium ${
+                isActive("/ingredientes")
+                  ? "text-red-600 bg-red-50"
+                  : "text-gray-600 hover:text-red-600 hover:bg-red-50"
+              }`}
+            >
+              {t.ingredients}
+            </Link>
+          </div>
+        </nav>
+      </div>
     </header>
   );
 }

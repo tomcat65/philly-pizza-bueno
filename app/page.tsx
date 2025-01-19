@@ -8,21 +8,20 @@ const translations = {
   en: {
     hero: {
       title: "PhillyPizzaBueno",
-      subtitle: "Your Complete Pizza Operations Guide",
-      description:
-        "Everything you need to know about ingredients, recipes, and procedures for your pizza business.",
+      subtitle:
+        "Management and operations control system for your pizza business",
     },
     cards: {
       manual: {
         title: "Procedures Manual",
         description:
-          "Step-by-step guides for preparation, cooking, and quality control.",
+          "Access the complete guide of operations, recipes, and procedures to maintain quality and efficiency.",
         action: "View Manual",
       },
       ingredients: {
         title: "Ingredients & Products",
         description:
-          "Complete catalog of ingredients with costs and specifications.",
+          "Explore our catalog of ingredients, prices and specifications for successful operation.",
         action: "View Ingredients",
       },
     },
@@ -33,21 +32,20 @@ const translations = {
   es: {
     hero: {
       title: "PhillyPizzaBueno",
-      subtitle: "Tu Guía Completa de Operaciones de Pizza",
-      description:
-        "Todo lo que necesitas saber sobre ingredientes, recetas y procedimientos para tu negocio de pizzas.",
+      subtitle:
+        "Sistema de gestión y control de operaciones para tu negocio de pizzas",
     },
     cards: {
       manual: {
         title: "Manual de Procedimientos",
         description:
-          "Guías paso a paso para preparación, cocción y control de calidad.",
+          "Acceda a la guía completa de operaciones, recetas y procedimientos para mantener la calidad y eficiencia.",
         action: "Ver Manual",
       },
       ingredients: {
         title: "Ingredientes y Productos",
         description:
-          "Catálogo completo de ingredientes con costos y especificaciones.",
+          "Explore nuestro catálogo de ingredientes, precios y especificaciones para una operación exitosa.",
         action: "Ver Ingredientes",
       },
     },
@@ -62,74 +60,70 @@ export default function Home() {
   const t = translations[language];
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-red-50 to-white">
+    <main className="min-h-screen bg-white">
       {/* Hero Section */}
-      <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-red-600 opacity-90" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+      <div className="relative bg-red-600">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
           <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
               {t.hero.title}
             </h1>
-            <h2 className="mt-4 text-2xl font-semibold text-white mb-12 max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto">
               {t.hero.subtitle}
-            </h2>
-            <p className="mt-6 text-lg leading-8 text-white">
-              {t.hero.description}
             </p>
           </div>
         </div>
-
-        {/* Decorative Elements */}
-        <div className="absolute top-0 left-0 w-32 h-32 md:w-64 md:h-64 bg-red-500 rounded-full -translate-x-1/2 -translate-y-1/2 opacity-50" />
-        <div className="absolute bottom-0 right-0 w-48 h-48 md:w-96 md:h-96 bg-red-500 rounded-full translate-x-1/3 translate-y-1/3 opacity-50" />
       </div>
 
       {/* Navigation Cards */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid md:grid-cols-2 gap-8">
           {/* Manual Card */}
           <Link
             href="/manual"
-            className="group relative bg-red-600 rounded-2xl shadow-xl p-8 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
+            className="group relative bg-white rounded-lg shadow-md hover:shadow-xl p-6 transition-all duration-300 border border-gray-200"
           >
-            <div className="absolute top-0 right-0 bg-white text-red-600 p-4 rounded-tr-2xl rounded-bl-2xl">
+            <div className="absolute top-4 right-4 text-red-600">
               <ArrowRight className="w-6 h-6 transform group-hover:translate-x-1 transition-transform" />
             </div>
-            <h2 className="text-2xl font-bold text-white mb-4">
+            <h2 className="text-xl font-bold text-gray-900 mb-3">
               {t.cards.manual.title}
             </h2>
-            <p className="text-white mb-6">{t.cards.manual.description}</p>
-            <div className="flex items-center text-white font-semibold">
+            <p className="text-gray-600 mb-4 pr-8">
+              {t.cards.manual.description}
+            </p>
+            <div className="inline-flex items-center text-red-600 font-medium">
               {t.cards.manual.action}
-              <ArrowRight className="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="ml-1 w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
             </div>
           </Link>
 
           {/* Ingredientes Card */}
           <Link
             href="/ingredientes"
-            className="group relative bg-red-600 rounded-2xl shadow-xl p-8 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
+            className="group relative bg-white rounded-lg shadow-md hover:shadow-xl p-6 transition-all duration-300 border border-gray-200"
           >
-            <div className="absolute top-0 right-0 bg-white text-red-600 p-4 rounded-tr-2xl rounded-bl-2xl">
+            <div className="absolute top-4 right-4 text-red-600">
               <ArrowRight className="w-6 h-6 transform group-hover:translate-x-1 transition-transform" />
             </div>
-            <h2 className="text-2xl font-bold text-white mb-4">
+            <h2 className="text-xl font-bold text-gray-900 mb-3">
               {t.cards.ingredients.title}
             </h2>
-            <p className="text-white mb-6">{t.cards.ingredients.description}</p>
-            <div className="flex items-center text-white font-semibold">
+            <p className="text-gray-600 mb-4 pr-8">
+              {t.cards.ingredients.description}
+            </p>
+            <div className="inline-flex items-center text-red-600 font-medium">
               {t.cards.ingredients.action}
-              <ArrowRight className="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="ml-1 w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
             </div>
           </Link>
         </div>
       </div>
 
       {/* Footer */}
-      <footer className="bg-red-600 text-white py-8">
+      <footer className="bg-red-600 text-white py-6 mt-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-white">{t.footer.copyright}</p>
+          <p className="text-white/90 text-sm">{t.footer.copyright}</p>
         </div>
       </footer>
     </main>

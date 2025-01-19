@@ -71,10 +71,10 @@ export default function Home() {
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
               {t.hero.title}
             </h1>
-            <h2 className="mt-4 text-2xl font-semibold text-red-100 mb-12 max-w-3xl mx-auto">
+            <h2 className="mt-4 text-2xl font-semibold text-white mb-12 max-w-3xl mx-auto">
               {t.hero.subtitle}
             </h2>
-            <p className="mt-6 text-lg leading-8 text-gray-600">
+            <p className="mt-6 text-lg leading-8 text-white">
               {t.hero.description}
             </p>
           </div>
@@ -91,16 +91,16 @@ export default function Home() {
           {/* Manual Card */}
           <Link
             href="/manual"
-            className="group relative bg-white rounded-2xl shadow-xl p-8 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
+            className="group relative bg-red-600 rounded-2xl shadow-xl p-8 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
           >
-            <div className="absolute top-0 right-0 bg-red-600 text-white p-4 rounded-tr-2xl rounded-bl-2xl">
+            <div className="absolute top-0 right-0 bg-white text-red-600 p-4 rounded-tr-2xl rounded-bl-2xl">
               <ArrowRight className="w-6 h-6 transform group-hover:translate-x-1 transition-transform" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl font-bold text-white mb-4">
               {t.cards.manual.title}
             </h2>
-            <p className="text-gray-600 mb-6">{t.cards.manual.description}</p>
-            <div className="flex items-center text-red-600 font-semibold">
+            <p className="text-white mb-6">{t.cards.manual.description}</p>
+            <div className="flex items-center text-white font-semibold">
               {t.cards.manual.action}
               <ArrowRight className="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
             </div>
@@ -109,18 +109,16 @@ export default function Home() {
           {/* Ingredientes Card */}
           <Link
             href="/ingredientes"
-            className="group relative bg-white rounded-2xl shadow-xl p-8 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
+            className="group relative bg-red-600 rounded-2xl shadow-xl p-8 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
           >
-            <div className="absolute top-0 right-0 bg-red-600 text-white p-4 rounded-tr-2xl rounded-bl-2xl">
+            <div className="absolute top-0 right-0 bg-white text-red-600 p-4 rounded-tr-2xl rounded-bl-2xl">
               <ArrowRight className="w-6 h-6 transform group-hover:translate-x-1 transition-transform" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl font-bold text-white mb-4">
               {t.cards.ingredients.title}
             </h2>
-            <p className="text-gray-600 mb-6">
-              {t.cards.ingredients.description}
-            </p>
-            <div className="flex items-center text-red-600 font-semibold">
+            <p className="text-white mb-6">{t.cards.ingredients.description}</p>
+            <div className="flex items-center text-white font-semibold">
               {t.cards.ingredients.action}
               <ArrowRight className="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
             </div>
@@ -131,7 +129,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-red-600 text-white py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-red-100">{t.footer.copyright}</p>
+          <p className="text-white">{t.footer.copyright}</p>
         </div>
       </footer>
     </main>

@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
 
 type Language = "en" | "es";
 
@@ -15,10 +21,27 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<Language>("en");
+  const [mounted, setMounted] = useState(false);
+
+  // Initialize language from localStorage on mount
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem("language") as Language;
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+    }
+    setMounted(true);
+  }, []);
 
   const toggleLanguage = () => {
-    setLanguage((prev) => (prev === "en" ? "es" : "en"));
+    const newLanguage = language === "en" ? "es" : "en";
+    setLanguage(newLanguage);
+    localStorage.setItem("language", newLanguage);
   };
+
+  // Prevent hydration mismatch by not rendering until mounted
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <LanguageContext.Provider value={{ language, toggleLanguage }}>

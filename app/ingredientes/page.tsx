@@ -154,11 +154,105 @@ function ProductImage({ src, alt }: ProductImageProps): ReactElement {
   );
 }
 
-export default function IngredientesPage(): ReactElement {
-  const { language } = useLanguage();
-  const t = translations[language];
-
-  const ingredients = [
+const ingredients = {
+  en: [
+    {
+      name: 'Philly Crust 10"',
+      image: "/frozen-philly-crust-10.jpg.png",
+      alt: "10-inch Crust",
+      specs: "24 units per box",
+      unitPrice: "$1.52",
+      casePrice: "$36.52",
+      itemNumber: "671177",
+      upc: "4460502004",
+      bin: "40005",
+    },
+    {
+      name: 'Philly Crust 12"',
+      image: "/frozen-philly-crust-12.jpg.png",
+      alt: "12-inch Crust",
+      specs: "24 units per box",
+      unitPrice: "$1.77",
+      casePrice: "$42.40",
+      itemNumber: "44611",
+      upc: "4460502001",
+      bin: "40005",
+    },
+    {
+      name: 'Philly Crust 16"',
+      image: "/frozen-philly-crust-16.jpg.png",
+      alt: "16-inch Crust",
+      specs: "24 units per box",
+      unitPrice: "$2.51",
+      casePrice: "$60.24",
+      itemNumber: "44612",
+      upc: "4460502002",
+      bin: "40005",
+    },
+    {
+      name: "Hormel Sliced Pepperoni",
+      image: "/hormel-pepperoni.jpg.png",
+      alt: "Sliced Pepperoni",
+      specs: "12.5 Lb per box",
+      unitPrice: "$5.87 per pound",
+      casePrice: "$146.76",
+      itemNumber: "80354",
+      upc: "3760048571",
+      bin: "60029",
+    },
+    {
+      name: "Combos Pizza Pretzel",
+      image: "/combos-pizza-pretzel.jpg.png",
+      alt: "Combos Pizza Pretzel",
+      specs: "18 units per box",
+      casePrice: "$150.12",
+      extraInfo: "12 units per case",
+      itemNumber: "12011",
+      upc: "4141971575",
+      bin: "20015",
+    },
+    {
+      name: "Supreme Italian Three Cheese Blend",
+      image: "/supremo-italiano-3cheese.jpg.png",
+      alt: "Three Cheese Blend",
+      specs: "5 Lbs - Provolone, Mozzarella, Cheddar",
+      casePrice: "$57.08",
+      itemNumber: "1440401",
+      upc: "76069501639",
+      bin: "70021",
+    },
+    {
+      name: "Whole Milk Mozzarella",
+      image: "/supremo-italiano-mozzarella.jpg.png",
+      alt: "Mozzarella",
+      specs: "5 Lbs - Whole Milk Mozzarella",
+      casePrice: "$47.35",
+      itemNumber: "93003",
+      upc: "7606950450",
+      bin: "70020",
+    },
+    {
+      name: "Bonta Pizza Sauce with Basil",
+      image: "/bonta-pizza-sauce.jpg.png",
+      alt: "Bonta Sauce",
+      specs: "#10 Cans - Premium Pizza Sauce",
+      casePrice: "$47.92",
+      itemNumber: "29874",
+      upc: "7848530110",
+      bin: "7010",
+    },
+    {
+      name: "Don Pepino Pizza Sauce",
+      image: "/don-pepino-sauce.jpg.png",
+      alt: "Don Pepino",
+      specs: "#10 Cans - Premium Pizza Sauce",
+      casePrice: "$33.61",
+      itemNumber: "29875",
+      upc: "7848530111",
+      bin: "7011",
+    },
+  ],
+  es: [
     {
       name: 'Masa Philly 10"',
       image: "/frozen-philly-crust-10.jpg.png",
@@ -209,7 +303,7 @@ export default function IngredientesPage(): ReactElement {
       alt: "Combos Pizza Pretzel",
       specs: "18 unidades por caja",
       casePrice: "$150.12",
-      extraInfo: "12 unidades por case",
+      extraInfo: "12 unidades por caja",
       itemNumber: "12011",
       upc: "4141971575",
       bin: "20015",
@@ -228,7 +322,7 @@ export default function IngredientesPage(): ReactElement {
       name: "Mozzarella Entera",
       image: "/supremo-italiano-mozzarella.jpg.png",
       alt: "Mozzarella",
-      specs: "5 Lbs - Whole Milk Mozzarella",
+      specs: "5 Lbs - Mozzarella Entera",
       casePrice: "$47.35",
       itemNumber: "93003",
       upc: "7606950450",
@@ -238,7 +332,7 @@ export default function IngredientesPage(): ReactElement {
       name: "Salsa Bonta con Albahaca",
       image: "/bonta-pizza-sauce.jpg.png",
       alt: "Salsa Bonta",
-      specs: "#10 Cans - Premium Pizza Sauce",
+      specs: "Latas #10 - Salsa Premium para Pizza",
       casePrice: "$47.92",
       itemNumber: "29874",
       upc: "7848530110",
@@ -248,13 +342,18 @@ export default function IngredientesPage(): ReactElement {
       name: "Salsa Don Pepino",
       image: "/don-pepino-sauce.jpg.png",
       alt: "Don Pepino",
-      specs: "#10 Cans - Pizza Sauce",
+      specs: "Latas #10 - Salsa Premium para Pizza",
       casePrice: "$33.61",
-      itemNumber: "23901",
-      upc: "3027101007",
-      bin: "7010",
+      itemNumber: "29875",
+      upc: "7848530111",
+      bin: "7011",
     },
-  ];
+  ],
+};
+
+export default function IngredientesPage(): ReactElement {
+  const { language } = useLanguage();
+  const t = translations[language];
 
   const menuItems = [
     {
@@ -356,8 +455,20 @@ export default function IngredientesPage(): ReactElement {
       <section className="mb-10">
         <h2 className="text-2xl font-bold mb-6">Ingredientes Base</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {ingredients.map((ingredient, index) => (
-            <ProductCard key={index} {...ingredient} />
+          {ingredients[language].map((item, index) => (
+            <ProductCard
+              key={index}
+              name={item.name}
+              image={item.image}
+              alt={item.alt}
+              specs={item.specs}
+              unitPrice={item.unitPrice}
+              casePrice={item.casePrice}
+              extraInfo={item.extraInfo}
+              itemNumber={item.itemNumber}
+              upc={item.upc}
+              bin={item.bin}
+            />
           ))}
         </div>
       </section>

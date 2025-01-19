@@ -1,7 +1,56 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { useLanguage } from "./context/LanguageContext";
+
+const translations = {
+  en: {
+    hero: {
+      title: "PhillyPizzaBueno",
+      subtitle: "Your Complete Pizza Operations Guide",
+      description:
+        "Everything you need to know about ingredients, recipes, and procedures for your pizza business.",
+    },
+    cards: {
+      manual: {
+        title: "Procedures Manual",
+        description:
+          "Step-by-step guides for preparation, cooking, and quality control.",
+      },
+      ingredients: {
+        title: "Ingredients & Products",
+        description:
+          "Complete catalog of ingredients with costs and specifications.",
+      },
+    },
+  },
+  es: {
+    hero: {
+      title: "PhillyPizzaBueno",
+      subtitle: "Tu Guía Completa de Operaciones de Pizza",
+      description:
+        "Todo lo que necesitas saber sobre ingredientes, recetas y procedimientos para tu negocio de pizzas.",
+    },
+    cards: {
+      manual: {
+        title: "Manual de Procedimientos",
+        description:
+          "Guías paso a paso para preparación, cocción y control de calidad.",
+      },
+      ingredients: {
+        title: "Ingredientes y Productos",
+        description:
+          "Catálogo completo de ingredientes con costos y especificaciones.",
+      },
+    },
+  },
+};
 
 export default function Home() {
+  const { language } = useLanguage();
+  const t = translations[language];
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-red-50 to-white">
       {/* Hero Section */}
@@ -10,11 +59,13 @@ export default function Home() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-              PhillyPizzaBueno
+              {t.hero.title}
             </h1>
-            <p className="text-xl md:text-2xl text-red-100 mb-12 max-w-3xl mx-auto">
-              Sistema de gestión y control de operaciones para tu negocio de
-              pizzas
+            <h2 className="mt-4 text-2xl font-semibold text-red-100 mb-12 max-w-3xl mx-auto">
+              {t.hero.subtitle}
+            </h2>
+            <p className="mt-6 text-lg leading-8 text-gray-600">
+              {t.hero.description}
             </p>
           </div>
         </div>
@@ -36,12 +87,9 @@ export default function Home() {
               <ArrowRight className="w-6 h-6 transform group-hover:translate-x-1 transition-transform" />
             </div>
             <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              Manual de Procedimientos
+              {t.cards.manual.title}
             </h2>
-            <p className="text-gray-600 mb-6">
-              Accede a la guía completa de operaciones, recetas, y
-              procedimientos estándar para mantener la calidad y eficiencia.
-            </p>
+            <p className="text-gray-600 mb-6">{t.cards.manual.description}</p>
             <div className="flex items-center text-red-600 font-semibold">
               Ver Manual
               <ArrowRight className="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
@@ -57,11 +105,10 @@ export default function Home() {
               <ArrowRight className="w-6 h-6 transform group-hover:translate-x-1 transition-transform" />
             </div>
             <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              Ingredientes y Productos
+              {t.cards.ingredients.title}
             </h2>
             <p className="text-gray-600 mb-6">
-              Explora nuestro catálogo de ingredientes, precios y
-              especificaciones para una gestión eficiente del inventario.
+              {t.cards.ingredients.description}
             </p>
             <div className="flex items-center text-red-600 font-semibold">
               Ver Ingredientes

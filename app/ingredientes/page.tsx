@@ -1,7 +1,163 @@
+"use client";
+
+import { type ReactElement } from "react";
+import Image from "next/image";
+import { useLanguage } from "../context/LanguageContext";
 import { ProductCard } from "../components/ProductCard";
 import { MenuItem } from "../components/MenuItem";
 
-export default function Ingredientes() {
+const translations = {
+  en: {
+    title: "Base Ingredients",
+    crusts: {
+      title: "Philly Crusts",
+      masa10: {
+        name: 'Philly Crust 10"',
+        unitCost: "Cost per unit: $1.52",
+        boxCost: "Cost per box: $36.52",
+        units: "24 units per box",
+      },
+      masa12: {
+        name: 'Philly Crust 12"',
+        unitCost: "Cost per unit: $1.77",
+        boxCost: "Cost per box: $42.40",
+        units: "24 units per box",
+      },
+      masa16: {
+        name: 'Philly Crust 16"',
+        unitCost: "Cost per unit: $2.51",
+        boxCost: "Cost per box: $60.24",
+        units: "24 units per box",
+      },
+    },
+    cheese: {
+      title: "Cheese",
+      threeCheeseBlend: {
+        name: "Supreme Italian Three Cheese Blend",
+        cost: "Cost per box: $57.08",
+        units: "4 units per case",
+      },
+      mozzarella: {
+        name: "Supreme Italian Mozzarella",
+        cost: "Cost per box: $47.35",
+        units: "4 units per case",
+      },
+    },
+    sauces: {
+      title: "Sauces",
+      bonta: {
+        name: "Bonta Pizza Sauce",
+        cost: "Cost per box: $47.92",
+        units: "6 units per case",
+      },
+      donPepino: {
+        name: "Don Pepino Pizza Sauce",
+        cost: "Cost per box: $33.61",
+        units: "6 units per case",
+      },
+    },
+    toppings: {
+      title: "Toppings",
+      pepperoni: {
+        name: "Hormel Sliced Pepperoni",
+        cost: "Cost per box: $146.76",
+        units: "12 units per case",
+      },
+      combos: {
+        name: "Combos Pizza Pretzel",
+        cost: "Cost per box: $150.12",
+        units: "12 units per case",
+      },
+    },
+  },
+  es: {
+    title: "Ingredientes Base",
+    crusts: {
+      title: "Masas Philly",
+      masa10: {
+        name: 'Masa Philly 10"',
+        unitCost: "Costo por unidad: $1.52",
+        boxCost: "Costo por caja: $36.52",
+        units: "24 unidades por caja",
+      },
+      masa12: {
+        name: 'Masa Philly 12"',
+        unitCost: "Costo por unidad: $1.77",
+        boxCost: "Costo por caja: $42.40",
+        units: "24 unidades por caja",
+      },
+      masa16: {
+        name: 'Masa Philly 16"',
+        unitCost: "Costo por unidad: $2.51",
+        boxCost: "Costo por caja: $60.24",
+        units: "24 unidades por caja",
+      },
+    },
+    cheese: {
+      title: "Quesos",
+      threeCheeseBlend: {
+        name: "Mezcla Tres Quesos Supremo Italiano",
+        cost: "Costo por caja: $57.08",
+        units: "4 unidades por caja",
+      },
+      mozzarella: {
+        name: "Mozzarella Supremo Italiano",
+        cost: "Costo por caja: $47.35",
+        units: "4 unidades por caja",
+      },
+    },
+    sauces: {
+      title: "Salsas",
+      bonta: {
+        name: "Salsa Bonta",
+        cost: "Costo por caja: $47.92",
+        units: "6 unidades por caja",
+      },
+      donPepino: {
+        name: "Salsa Don Pepino",
+        cost: "Costo por caja: $33.61",
+        units: "6 unidades por caja",
+      },
+    },
+    toppings: {
+      title: "Ingredientes",
+      pepperoni: {
+        name: "Pepperoni Hormel Rebanado",
+        cost: "Costo por caja: $146.76",
+        units: "12 unidades por caja",
+      },
+      combos: {
+        name: "Combos Pizza Pretzel",
+        cost: "Costo por caja: $150.12",
+        units: "12 unidades por caja",
+      },
+    },
+  },
+};
+
+interface ProductImageProps {
+  src: string;
+  alt: string;
+}
+
+function ProductImage({ src, alt }: ProductImageProps): ReactElement {
+  return (
+    <div className="relative w-full h-48 mb-4">
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        className="object-contain rounded-lg"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      />
+    </div>
+  );
+}
+
+export default function IngredientesPage(): ReactElement {
+  const { language } = useLanguage();
+  const t = translations[language];
+
   const ingredients = [
     {
       name: 'Masa Philly 10"',

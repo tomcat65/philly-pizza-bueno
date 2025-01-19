@@ -367,40 +367,46 @@ export default function IngredientsPage(): ReactElement {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <ProductCard
+            name={translations[language].crusts.masa10.name}
             image="/frozen-philly-crust-10.jpg.png"
             alt={translations[language].crusts.masa10.name}
-            title={translations[language].crusts.masa10.name}
-            details={[
-              translations[language].crusts.masa10.unitCost,
-              translations[language].crusts.masa10.boxCost,
-              translations[language].crusts.masa10.units,
-            ]}
+            specs={translations[language].crusts.masa10.units}
+            unitPrice={
+              translations[language].crusts.masa10.unitCost.split(": ")[1]
+            }
+            casePrice={
+              translations[language].crusts.masa10.boxCost.split(": ")[1]
+            }
             itemNumber="671177"
             upc="4460502004"
             bin="40005"
           />
           <ProductCard
+            name={translations[language].crusts.masa12.name}
             image="/frozen-philly-crust-12.jpg.png"
             alt={translations[language].crusts.masa12.name}
-            title={translations[language].crusts.masa12.name}
-            details={[
-              translations[language].crusts.masa12.unitCost,
-              translations[language].crusts.masa12.boxCost,
-              translations[language].crusts.masa12.units,
-            ]}
+            specs={translations[language].crusts.masa12.units}
+            unitPrice={
+              translations[language].crusts.masa12.unitCost.split(": ")[1]
+            }
+            casePrice={
+              translations[language].crusts.masa12.boxCost.split(": ")[1]
+            }
             itemNumber="44611"
             upc="4460502001"
             bin="40005"
           />
           <ProductCard
+            name={translations[language].crusts.masa16.name}
             image="/frozen-philly-crust-16.jpg.png"
             alt={translations[language].crusts.masa16.name}
-            title={translations[language].crusts.masa16.name}
-            details={[
-              translations[language].crusts.masa16.unitCost,
-              translations[language].crusts.masa16.boxCost,
-              translations[language].crusts.masa16.units,
-            ]}
+            specs={translations[language].crusts.masa16.units}
+            unitPrice={
+              translations[language].crusts.masa16.unitCost.split(": ")[1]
+            }
+            casePrice={
+              translations[language].crusts.masa16.boxCost.split(": ")[1]
+            }
             itemNumber="44612"
             upc="4460502002"
             bin="40005"
@@ -415,25 +421,25 @@ export default function IngredientsPage(): ReactElement {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <ProductCard
+            name={translations[language].cheese.threeCheeseBlend.name}
             image="/supremo-italiano-3cheese.jpg.png"
             alt={translations[language].cheese.threeCheeseBlend.name}
-            title={translations[language].cheese.threeCheeseBlend.name}
-            details={[
-              translations[language].cheese.threeCheeseBlend.cost,
-              translations[language].cheese.threeCheeseBlend.units,
-            ]}
+            specs={translations[language].cheese.threeCheeseBlend.units}
+            casePrice={
+              translations[language].cheese.threeCheeseBlend.cost.split(": ")[1]
+            }
             itemNumber="1440401"
             upc="76069501639"
             bin="70021"
           />
           <ProductCard
+            name={translations[language].cheese.mozzarella.name}
             image="/supremo-italiano-mozzarella.jpg.png"
             alt={translations[language].cheese.mozzarella.name}
-            title={translations[language].cheese.mozzarella.name}
-            details={[
-              translations[language].cheese.mozzarella.cost,
-              translations[language].cheese.mozzarella.units,
-            ]}
+            specs={translations[language].cheese.mozzarella.units}
+            casePrice={
+              translations[language].cheese.mozzarella.cost.split(": ")[1]
+            }
             itemNumber="93003"
             upc="7606950450"
             bin="70020"
@@ -448,25 +454,23 @@ export default function IngredientsPage(): ReactElement {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <ProductCard
+            name={translations[language].sauces.bonta.name}
             image="/bonta-pizza-sauce.jpg.png"
             alt={translations[language].sauces.bonta.name}
-            title={translations[language].sauces.bonta.name}
-            details={[
-              translations[language].sauces.bonta.cost,
-              translations[language].sauces.bonta.units,
-            ]}
+            specs={translations[language].sauces.bonta.units}
+            casePrice={translations[language].sauces.bonta.cost.split(": ")[1]}
             itemNumber="29874"
             upc="7848530110"
             bin="7010"
           />
           <ProductCard
+            name={translations[language].sauces.donPepino.name}
             image="/don-pepino-sauce.jpg.png"
             alt={translations[language].sauces.donPepino.name}
-            title={translations[language].sauces.donPepino.name}
-            details={[
-              translations[language].sauces.donPepino.cost,
-              translations[language].sauces.donPepino.units,
-            ]}
+            specs={translations[language].sauces.donPepino.units}
+            casePrice={
+              translations[language].sauces.donPepino.cost.split(": ")[1]
+            }
             itemNumber="29875"
             upc="7848530111"
             bin="7011"
@@ -481,25 +485,25 @@ export default function IngredientsPage(): ReactElement {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <ProductCard
+            name={translations[language].toppings.pepperoni.name}
             image="/hormel-pepperoni.jpg.png"
             alt={translations[language].toppings.pepperoni.name}
-            title={translations[language].toppings.pepperoni.name}
-            details={[
-              translations[language].toppings.pepperoni.cost,
-              translations[language].toppings.pepperoni.units,
-            ]}
+            specs={translations[language].toppings.pepperoni.units}
+            casePrice={
+              translations[language].toppings.pepperoni.cost.split(": ")[1]
+            }
             itemNumber="80354"
             upc="3760048571"
             bin="60029"
           />
           <ProductCard
+            name={translations[language].toppings.combos.name}
             image="/combos-pizza-pretzel.jpg.png"
             alt={translations[language].toppings.combos.name}
-            title={translations[language].toppings.combos.name}
-            details={[
-              translations[language].toppings.combos.cost,
-              translations[language].toppings.combos.units,
-            ]}
+            specs={translations[language].toppings.combos.units}
+            casePrice={
+              translations[language].toppings.combos.cost.split(": ")[1]
+            }
             itemNumber="12011"
             upc="4141971575"
             bin="20015"

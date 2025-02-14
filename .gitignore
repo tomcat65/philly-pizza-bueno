@@ -25,9 +25,17 @@ yarn-error.log*
 # local env files
 .env*.local
 
+# local env files
+.env*
+
+
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# bolt
+.bolt/
+.bolt

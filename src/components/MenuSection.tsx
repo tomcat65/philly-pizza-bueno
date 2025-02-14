@@ -3,7 +3,6 @@
 import React from 'react';
 import { useCartStore } from '../stores/cartStore';
 import { supabase } from '../lib/supabase';
-import { Star } from 'lucide-react';
 import type { Pizza as PizzaType } from '@/types/pizza';
 import { MenuSkeleton } from '@/components/skeletons/menu-skeleton';
 
@@ -18,15 +17,16 @@ interface Sizes {
   family: Size;
 }
 
-interface Toppings {
-  cheese: string[];
-  meat: string[];
-  veggies: string[];
-}
-
-interface ToppingOptions {
-  amount: string[];
-  style: string[];
+interface ToppingData {
+  toppings: {
+    cheese: string[];
+    meat: string[];
+    veggies: string[];
+  };
+  options: {
+    amount: string[];
+    style: string[];
+  };
 }
 
 interface ToppingSelection {
@@ -42,39 +42,37 @@ interface MenuSectionProps {
     regular: { size: number; name: string };
     family: { size: number; name: string };
   };
-  toppings: {
-    cheese: string[];
-    meat: string[];
-    veggies: string[];
-  };
-  toppingOptions: {
-    amount: string[];
-    style: string[];
-  };
 }
 
-export default function MenuSection({ sizes, toppings, toppingOptions }: MenuSectionProps) {
+export default function MenuSection({ sizes }: MenuSectionProps) {
   const [pizzas, setPizzas] = React.useState<PizzaType[]>([]);
   const [loading, setLoading] = React.useState(true);
+  const [toppingData, setToppingData] = React.useState<ToppingData | null>(null);
   const [selectedPizza, setSelectedPizza] = React.useState<PizzaType | null>(null);
   const [selectedSize, setSelectedSize] = React.useState<keyof typeof sizes>('regular');
   const [selectedToppings, setSelectedToppings] = React.useState<ToppingSelection[]>([]);
   const addItem = useCartStore(state => state.addItem);
 
   React.useEffect(() => {
-    const fetchPizzas = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch('/api/pizzas');
-        const data = await response.json();
-        setPizzas(data);
+        // Fetch pizzas
+        const pizzaResponse = await fetch('/api/pizzas');
+        const pizzaData = await pizzaResponse.json();
+        setPizzas(pizzaData);
+
+        // Fetch toppings
+        const toppingResponse = await fetch('/api/toppings');
+        const toppingData = await toppingResponse.json();
+        setToppingData(toppingData);
       } catch (error) {
-        console.error('Error fetching pizzas:', error);
+        console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchPizzas();
+    fetchData();
   }, []);
 
   const handleAddToCart = async (pizza: PizzaType) => {
@@ -124,17 +122,17 @@ export default function MenuSection({ sizes, toppings, toppingOptions }: MenuSec
     ));
   };
 
-  if (loading) {
+  if (loading || !toppingData) {
     return <MenuSkeleton />;
   }
 
-  const renderToppingCategory = (title: string, items: string[], category: keyof typeof toppings) => (
+  const renderToppingCategory = (title: string, items: string[], category: keyof ToppingData['toppings']) => (
     <div className="mb-6">
       <h5 className="text-lg font-medium text-gray-700 mb-3">{title}</h5>
       <div className="space-y-4">
         {items.map(topping => {
           const isSelected = selectedToppings.some(t => t.name === topping);
-          const toppingData = selectedToppings.find(t => t.name === topping);
+          const selectedTopping = selectedToppings.find(t => t.name === topping);
 
           return (
             <div key={topping} className="space-y-3">
@@ -148,18 +146,18 @@ export default function MenuSection({ sizes, toppings, toppingOptions }: MenuSec
                 <span>{topping}</span>
               </label>
               
-              {isSelected && (
+              {isSelected && toppingData && (
                 <div className="ml-6 space-y-3">
                   <div className="space-y-2">
                     <span className="text-sm text-gray-600 block">Amount:</span>
                     <div className="flex items-center space-x-4">
-                      {toppingOptions.amount.map(amount => (
+                      {toppingData.options.amount.map((amount: string) => (
                         <label key={amount} className="flex items-center space-x-2">
                           <input
                             type="radio"
                             name={`amount-${topping}`}
                             value={amount}
-                            checked={toppingData?.amount === amount}
+                            checked={selectedTopping?.amount === amount}
                             onChange={() => updateToppingAmount(topping, amount)}
                             className="text-red-600 focus:ring-red-500"
                           />
@@ -173,13 +171,13 @@ export default function MenuSection({ sizes, toppings, toppingOptions }: MenuSec
                     <div className="space-y-2">
                       <span className="text-sm text-gray-600 block">Style:</span>
                       <div className="flex items-center space-x-4">
-                        {toppingOptions.style.map(style => (
+                        {toppingData.options.style.map((style: string) => (
                           <label key={style} className="flex items-center space-x-2">
                             <input
                               type="radio"
                               name={`style-${topping}`}
                               value={style}
-                              checked={toppingData?.style === style}
+                              checked={selectedTopping?.style === style}
                               onChange={() => updateToppingStyle(topping, style)}
                               className="text-red-600 focus:ring-red-500"
                             />
@@ -213,7 +211,7 @@ export default function MenuSection({ sizes, toppings, toppingOptions }: MenuSec
           {pizzas.map((pizza) => (
             <div key={pizza.id} className="bg-white rounded-lg shadow-lg overflow-hidden">
               <img
-                src={pizza.image_url}
+                src={pizza.image_url || pizza.image}
                 alt={pizza.name}
                 className="w-full h-64 object-cover"
               />
@@ -281,9 +279,9 @@ export default function MenuSection({ sizes, toppings, toppingOptions }: MenuSec
                   </div>
 
                   <div className="mb-6 max-h-96 overflow-y-auto">
-                    {renderToppingCategory('Cheese', toppings.cheese, 'cheese')}
-                    {renderToppingCategory('Meat Toppings', toppings.meat, 'meat')}
-                    {renderToppingCategory('Veggie Toppings', toppings.veggies, 'veggies')}
+                    {renderToppingCategory('Cheese', toppingData.toppings.cheese, 'cheese')}
+                    {renderToppingCategory('Meat Toppings', toppingData.toppings.meat, 'meat')}
+                    {renderToppingCategory('Veggie Toppings', toppingData.toppings.veggies, 'veggies')}
                   </div>
 
                   <div className="mt-5 sm:mt-6 space-y-2">
@@ -312,7 +310,7 @@ export default function MenuSection({ sizes, toppings, toppingOptions }: MenuSec
             <div>
               <h4 className="text-lg font-semibold text-red-600 mb-4">Cheese Options</h4>
               <ul className="space-y-2 text-gray-600">
-                {toppings.cheese.map((topping) => (
+                {toppingData.toppings.cheese.map((topping) => (
                   <li key={topping}>• {topping}</li>
                 ))}
               </ul>
@@ -320,7 +318,7 @@ export default function MenuSection({ sizes, toppings, toppingOptions }: MenuSec
             <div>
               <h4 className="text-lg font-semibold text-red-600 mb-4">Meat Toppings</h4>
               <ul className="space-y-2 text-gray-600">
-                {toppings.meat.map((topping) => (
+                {toppingData.toppings.meat.map((topping) => (
                   <li key={topping}>• {topping}</li>
                 ))}
               </ul>
@@ -328,7 +326,7 @@ export default function MenuSection({ sizes, toppings, toppingOptions }: MenuSec
             <div>
               <h4 className="text-lg font-semibold text-red-600 mb-4">Veggie Toppings</h4>
               <ul className="space-y-2 text-gray-600">
-                {toppings.veggies.map((topping) => (
+                {toppingData.toppings.veggies.map((topping) => (
                   <li key={topping}>• {topping}</li>
                 ))}
               </ul>

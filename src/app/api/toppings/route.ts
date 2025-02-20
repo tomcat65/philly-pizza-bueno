@@ -1,63 +1,119 @@
 import { createClient } from '@/lib/supabase/server'
 import { NextResponse } from 'next/server'
 
-export async function GET() {
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url)
+  const productType = searchParams.get('type')
+
+  console.log('1. Starting topping fetch for product type:', productType)
+
+  if (!productType) {
+    console.error('No product type provided')
+    return NextResponse.json(
+      { error: 'Product type is required' },
+      { status: 400 }
+    )
+  }
+
+  const supabase = createClient()
+
   try {
-    const supabase = createClient()
+    // Test each query individually to identify any RLS issues
+    console.log('2. Testing individual queries...')
+    
+    const categoriesResult = await supabase.from('topping_categories').select('id, name')
+    console.log('Categories query:', {
+      data: categoriesResult.data,
+      error: categoriesResult.error
+    })
+    
+    const toppingsResult = await supabase.from('toppings').select('id, name, category_id')
+    console.log('Toppings query:', {
+      data: toppingsResult.data,
+      error: toppingsResult.error
+    })
+    
+    const availabilityResult = await supabase
+      .from('product_topping_availability')
+      .select('topping_id, is_default')
+      .eq('product_type', productType)
+    console.log('Availability query:', {
+      data: availabilityResult.data,
+      error: availabilityResult.error
+    })
+    
+    const optionsResult = await supabase.from('topping_options').select('type, value')
+    console.log('Options query:', {
+      data: optionsResult.data,
+      error: optionsResult.error
+    })
 
-    // Fetch toppings with their categories
-    const { data: toppings, error: toppingsError } = await supabase
-      .from('toppings')
-      .select(`
-        id,
-        name,
-        category_id,
-        topping_categories (
-          name
-        )
-      `)
-      .order('name')
+    // If any query failed, throw an error
+    if (categoriesResult.error) throw new Error(`Categories query failed: ${categoriesResult.error.message}`)
+    if (toppingsResult.error) throw new Error(`Toppings query failed: ${toppingsResult.error.message}`)
+    if (availabilityResult.error) throw new Error(`Availability query failed: ${availabilityResult.error.message}`)
+    if (optionsResult.error) throw new Error(`Options query failed: ${optionsResult.error.message}`)
 
-    if (toppingsError) {
-      return NextResponse.json({ error: toppingsError.message }, { status: 500 })
+    const categories = categoriesResult.data
+    const toppings = toppingsResult.data
+    const availability = availabilityResult.data
+    const options = optionsResult.data
+
+    // Initialize response structure
+    const organizedToppings = {
+      cheese: [] as string[],
+      meat: [] as string[],
+      veggies: [] as string[]
     }
 
-    // Fetch topping options
-    const { data: options, error: optionsError } = await supabase
-      .from('topping_options')
-      .select('*')
-      .order('value')
+    // Create a map of category IDs to names
+    const categoryMap = new Map(categories?.map(cat => [cat.id, cat.name.toLowerCase()]) || [])
 
-    if (optionsError) {
-      return NextResponse.json({ error: optionsError.message }, { status: 500 })
-    }
+    // Get available toppings for this product type
+    const availableToppingIds = availability?.map(a => a.topping_id) || []
+    const availableToppings = toppings?.filter(t => availableToppingIds.includes(t.id)) || []
 
-    // Organize toppings by category
-    const organizedToppings = toppings.reduce((acc: Record<string, string[]>, topping) => {
-      const category = topping.topping_categories.name
-      if (!acc[category]) {
-        acc[category] = []
+    // Process toppings
+    availableToppings.forEach(topping => {
+      const categoryName = categoryMap.get(topping.category_id)
+      if (categoryName && categoryName in organizedToppings) {
+        organizedToppings[categoryName as keyof typeof organizedToppings].push(topping.name)
       }
-      acc[category].push(topping.name)
-      return acc
-    }, {})
+    })
 
     // Organize options by type
-    const organizedOptions = options.reduce((acc: Record<string, string[]>, option) => {
-      if (!acc[option.type]) {
-        acc[option.type] = []
-      }
-      acc[option.type].push(option.value)
-      return acc
-    }, {})
+    const organizedOptions = {
+      amount: [] as string[],
+      style: [] as string[]
+    }
 
-    return NextResponse.json({
-      toppings: organizedToppings,
-      options: organizedOptions
+    options?.forEach(option => {
+      if (option.type in organizedOptions) {
+        organizedOptions[option.type as keyof typeof organizedOptions].push(option.value)
+      }
     })
+
+    // Get default toppings
+    const defaultToppingIds = availability
+      ?.filter(a => a.is_default)
+      .map(a => a.topping_id) || []
+    const defaultToppings = toppings
+      ?.filter(t => defaultToppingIds.includes(t.id))
+      .map(t => t.name) || []
+
+    const response = {
+      toppings: organizedToppings,
+      options: organizedOptions,
+      defaults: defaultToppings
+    }
+
+    console.log('3. Final Response:', JSON.stringify(response, null, 2))
+    return NextResponse.json(response)
+
   } catch (error) {
+    console.error('Error in toppings API:', error)
     return NextResponse.json(
-      { error: 'Internal Server Error' },
+      { error: error instanceof Error ? error.message : 'Failed to fetch toppings' },
       { status: 500 }
     )
   }

@@ -63,7 +63,7 @@ const LocationSection = ({ contact }: LocationSectionProps) => {
 
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3053.7496975562544!2d-75.0153843!3d40.0844293!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c6b3af9964ac8f%3A0x9974fea0253edb15!2sPhiladelphia%20Mills!5e0!3m2!1sen!2sus!4v1646932547856!5m2!1sen!2sus"
+              src="https://www.google.com/maps/place/Franklin+Mall/@40.0847306,-74.9638275,17.25z/data=!3m1!5s0x89c14cd1524734f3:0xb825fcec7e598bb0!4m6!3m5!1s0x89c14cd155521e2b:0x552bee52edd01ebf!8m2!3d40.0872957!4d-74.9614271!16zL20vMDcycDJi?entry=ttu&g_ep=EgoyMDI1MDIxMS4wIKXMDSoASAFQAw%3D%3D"
               width="100%"
               height="100%"
               style={{ border: 0, minHeight: '400px' }}

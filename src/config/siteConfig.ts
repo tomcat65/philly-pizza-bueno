@@ -10,7 +10,7 @@ export const siteConfig = {
       zip: "19154",
       location: "Food Court"
     },
-    hours: "11AM - 9PM",
+    hours: "10AM - 8PM",
     daysOpen: "Monday - Sunday",
     social: {
       instagram: "#",

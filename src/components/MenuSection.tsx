@@ -18,15 +18,12 @@ interface Sizes {
 }
 
 interface ToppingData {
-  toppings: {
-    cheese: string[];
-    meat: string[];
-    veggies: string[];
-  };
+  toppings: Record<string, string[]>
   options: {
-    amount: string[];
-    style: string[];
-  };
+    amount: string[]
+    style: string[]
+  }
+  defaults: string[]
 }
 
 interface ToppingSelection {
@@ -62,9 +59,21 @@ export default function MenuSection({ sizes }: MenuSectionProps) {
         setPizzas(pizzaData);
 
         // Fetch toppings
-        const toppingResponse = await fetch('/api/toppings');
+        const toppingResponse = await fetch('/api/toppings?type=pizza');
         const toppingData = await toppingResponse.json();
+        console.log('Topping data:', toppingData);
         setToppingData(toppingData);
+
+        // Set default toppings if any
+        if (toppingData?.defaults) {
+          setSelectedToppings(
+            toppingData.defaults.map((name: string) => ({
+              name,
+              amount: 'normal',
+              style: toppingData.toppings['veggies']?.includes(name) ? 'fresh' : undefined
+            }))
+          );
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -74,6 +83,12 @@ export default function MenuSection({ sizes }: MenuSectionProps) {
 
     fetchData();
   }, []);
+
+  React.useEffect(() => {
+    if (toppingData) {
+      console.log('Current topping data:', toppingData);
+    }
+  }, [toppingData]);
 
   const handleAddToCart = async (pizza: PizzaType) => {
     const user = await supabase.auth.getUser();
@@ -126,75 +141,81 @@ export default function MenuSection({ sizes }: MenuSectionProps) {
     return <MenuSkeleton />;
   }
 
-  const renderToppingCategory = (title: string, items: string[], category: keyof ToppingData['toppings']) => (
-    <div className="mb-6">
-      <h5 className="text-lg font-medium text-gray-700 mb-3">{title}</h5>
-      <div className="space-y-4">
-        {items.map(topping => {
-          const isSelected = selectedToppings.some(t => t.name === topping);
-          const selectedTopping = selectedToppings.find(t => t.name === topping);
+  const renderToppingCategory = (title: string, category: string) => {
+    if (!toppingData.toppings[category] || !toppingData.toppings[category].length) {
+      return null
+    }
 
-          return (
-            <div key={topping} className="space-y-3">
-              <label className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  checked={isSelected}
-                  onChange={() => handleToppingSelection(category, topping)}
-                  className="rounded text-red-600 focus:ring-red-500"
-                />
-                <span>{topping}</span>
-              </label>
-              
-              {isSelected && toppingData && (
-                <div className="ml-6 space-y-3">
-                  <div className="space-y-2">
-                    <span className="text-sm text-gray-600 block">Amount:</span>
-                    <div className="flex items-center space-x-4">
-                      {toppingData.options.amount.map((amount: string) => (
-                        <label key={amount} className="flex items-center space-x-2">
-                          <input
-                            type="radio"
-                            name={`amount-${topping}`}
-                            value={amount}
-                            checked={selectedTopping?.amount === amount}
-                            onChange={() => updateToppingAmount(topping, amount)}
-                            className="text-red-600 focus:ring-red-500"
-                          />
-                          <span className="text-sm capitalize">{amount}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  {category === 'veggies' && (
+    return (
+      <div className="mb-6">
+        <h5 className="text-lg font-medium text-gray-700 mb-3">{title}</h5>
+        <div className="space-y-4">
+          {toppingData.toppings[category].map(topping => {
+            const isSelected = selectedToppings.some(t => t.name === topping);
+            const selectedTopping = selectedToppings.find(t => t.name === topping);
+
+            return (
+              <div key={topping} className="space-y-3">
+                <label className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    checked={isSelected}
+                    onChange={() => handleToppingSelection(category, topping)}
+                    className="rounded text-red-600 focus:ring-red-500"
+                  />
+                  <span>{topping}</span>
+                </label>
+                
+                {isSelected && (
+                  <div className="ml-6 space-y-3">
                     <div className="space-y-2">
-                      <span className="text-sm text-gray-600 block">Style:</span>
+                      <span className="text-sm text-gray-600 block">Amount:</span>
                       <div className="flex items-center space-x-4">
-                        {toppingData.options.style.map((style: string) => (
-                          <label key={style} className="flex items-center space-x-2">
+                        {toppingData.options.amount.map(amount => (
+                          <label key={amount} className="flex items-center space-x-2">
                             <input
                               type="radio"
-                              name={`style-${topping}`}
-                              value={style}
-                              checked={selectedTopping?.style === style}
-                              onChange={() => updateToppingStyle(topping, style)}
+                              name={`amount-${topping}`}
+                              value={amount}
+                              checked={selectedTopping?.amount === amount}
+                              onChange={() => updateToppingAmount(topping, amount)}
                               className="text-red-600 focus:ring-red-500"
                             />
-                            <span className="text-sm capitalize">{style}</span>
+                            <span className="text-sm capitalize">{amount}</span>
                           </label>
                         ))}
                       </div>
                     </div>
-                  )}
-                </div>
-              )}
-            </div>
-          );
-        })}
+                    
+                    {category === 'veggies' && (
+                      <div className="space-y-2">
+                        <span className="text-sm text-gray-600 block">Style:</span>
+                        <div className="flex items-center space-x-4">
+                          {toppingData.options.style.map(style => (
+                            <label key={style} className="flex items-center space-x-2">
+                              <input
+                                type="radio"
+                                name={`style-${topping}`}
+                                value={style}
+                                checked={selectedTopping?.style === style}
+                                onChange={() => updateToppingStyle(topping, style)}
+                                className="text-red-600 focus:ring-red-500"
+                              />
+                              <span className="text-sm capitalize">{style}</span>
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <section id="menu" className="py-20 bg-gray-50">
@@ -279,9 +300,9 @@ export default function MenuSection({ sizes }: MenuSectionProps) {
                   </div>
 
                   <div className="mb-6 max-h-96 overflow-y-auto">
-                    {renderToppingCategory('Cheese', toppingData.toppings.cheese, 'cheese')}
-                    {renderToppingCategory('Meat Toppings', toppingData.toppings.meat, 'meat')}
-                    {renderToppingCategory('Veggie Toppings', toppingData.toppings.veggies, 'veggies')}
+                    {renderToppingCategory('Cheese', 'cheese')}
+                    {renderToppingCategory('Meat Toppings', 'meat')}
+                    {renderToppingCategory('Veggie Toppings', 'veggies')}
                   </div>
 
                   <div className="mt-5 sm:mt-6 space-y-2">
@@ -310,7 +331,7 @@ export default function MenuSection({ sizes }: MenuSectionProps) {
             <div>
               <h4 className="text-lg font-semibold text-red-600 mb-4">Cheese Options</h4>
               <ul className="space-y-2 text-gray-600">
-                {toppingData.toppings.cheese.map((topping) => (
+                {toppingData?.toppings['cheese']?.map((topping) => (
                   <li key={topping}>• {topping}</li>
                 ))}
               </ul>
@@ -318,7 +339,7 @@ export default function MenuSection({ sizes }: MenuSectionProps) {
             <div>
               <h4 className="text-lg font-semibold text-red-600 mb-4">Meat Toppings</h4>
               <ul className="space-y-2 text-gray-600">
-                {toppingData.toppings.meat.map((topping) => (
+                {toppingData?.toppings['meat']?.map((topping) => (
                   <li key={topping}>• {topping}</li>
                 ))}
               </ul>
@@ -326,7 +347,7 @@ export default function MenuSection({ sizes }: MenuSectionProps) {
             <div>
               <h4 className="text-lg font-semibold text-red-600 mb-4">Veggie Toppings</h4>
               <ul className="space-y-2 text-gray-600">
-                {toppingData.toppings.veggies.map((topping) => (
+                {toppingData?.toppings['veggies']?.map((topping) => (
                   <li key={topping}>• {topping}</li>
                 ))}
               </ul>

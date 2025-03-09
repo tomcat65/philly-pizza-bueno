@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "PhillyPizzaBueno",
   contact: {
-    phone: "(215) 555-0123",
+    phone: "(215) 610-0873",
     address: {
       mall: "Philadelphia Mills Mall",
       street: "1455 Franklin Mills Circle",
@@ -71,18 +71,6 @@ export const siteConfig = {
     amount: ["light", "normal", "xtra"],
     style: ["fresh", "grilled"]
   },
-  specials: [
-    {
-      name: "Family Deal",
-      description: "1 Family Size Pizza (17\") with 2 toppings + 2L Drink",
-      price: 24.99
-    },
-    {
-      name: "Lunch Special",
-      description: "1 Personal Pizza (10\") with 1 topping + Drink",
-      price: 9.99
-    }
-  ],
   hero: {
     title: "Authentic Philly-Style Pizza",
     subtitle: "Experience the perfect blend of Philadelphia tradition and Italian flavor at Philadelphia Mills Mall.",

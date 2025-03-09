@@ -18,7 +18,16 @@ export async function GET(request: Request) {
   const supabase = createClient()
 
   try {
-    // Test each query individually to identify any RLS issues
+    // First update the style option from 'roasted' to 'grilled'
+    const updateResult = await supabase
+      .from('topping_options')
+      .update({ value: 'grilled' })
+      .eq('type', 'style')
+      .eq('value', 'roasted')
+    
+    console.log('Update result:', updateResult)
+
+    // Then proceed with the regular queries
     console.log('2. Testing individual queries...')
     
     const categoriesResult = await supabase.from('topping_categories').select('id, name')

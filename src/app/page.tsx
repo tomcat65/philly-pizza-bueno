@@ -19,7 +19,7 @@ export default function Home() {
             toppingOptions={siteConfig.toppingOptions}
           />
         </Suspense>
-        <SpecialsSection specials={siteConfig.specials} />
+        <SpecialsSection />
         <LocationSection contact={siteConfig.contact} />
       </main>
       <Footer config={siteConfig} />

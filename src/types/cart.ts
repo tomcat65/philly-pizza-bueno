@@ -12,9 +12,12 @@ export interface CartItem {
 export interface CartStore {
   items: CartItem[]
   total: number
+  isCheckingOut: boolean
   addItem: (item: Omit<CartItem, 'id'>) => void
   removeItem: (id: string) => void
   updateQuantity: (id: string, quantity: number) => void
   clearCart: () => void
   fetchCart: () => Promise<void>
+  syncCartToDatabase: () => Promise<boolean>
+  setCheckingOut: (isCheckingOut: boolean) => void
 } 

@@ -1,0 +1,13 @@
+---
+description: project specific
+globs: 
+alwaysApply: false
+---
+# Supabase Schema
+
+- Always refer to .docs/schema.md @schema.md for validation of the right code, types, to implement
+- if you propose a change in any table or views or functions please include them and update [schema.md](mdc:.docs/schema.md)
+
+# Windows 
+
+- Always use windows commands we are developing in windows, either use powershell or cmd

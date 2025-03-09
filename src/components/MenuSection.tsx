@@ -33,15 +33,20 @@ interface ToppingSelection {
 }
 
 interface MenuSectionProps {
-  pizzas: PizzaType[];
+  pizzas?: PizzaType[];
   sizes: {
     personal: { size: number; name: string };
     regular: { size: number; name: string };
     family: { size: number; name: string };
   };
+  toppings?: Record<string, string[]>;
+  toppingOptions?: {
+    amount: string[];
+    style: string[];
+  };
 }
 
-export default function MenuSection({ sizes }: MenuSectionProps) {
+export default function MenuSection({ sizes, toppings, toppingOptions }: MenuSectionProps) {
   const [pizzas, setPizzas] = React.useState<PizzaType[]>([]);
   const [loading, setLoading] = React.useState(true);
   const [toppingData, setToppingData] = React.useState<ToppingData | null>(null);
